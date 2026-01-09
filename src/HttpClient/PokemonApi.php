@@ -8,7 +8,6 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 final class PokemonApi
 {
-
     public function __construct(private HttpClientInterface $pokemonClient)
     {
     }
@@ -21,7 +20,7 @@ final class PokemonApi
         $response = $this->pokemonClient->request('GET', '/api/v2/pokemon?limit=300')->toArray();
 
         $pokemons = [];
-        foreach($response['results'] as $pokemonData) {
+        foreach ($response['results'] as $pokemonData) {
             $pokemons[] = new PokemonListDto($pokemonData['name']);
         }
 
@@ -42,6 +41,5 @@ final class PokemonApi
             abilities: $abilities,
             baseExperience: $response['base_experience'],
         );
-
     }
 }

@@ -16,7 +16,6 @@ class PokedexRepository extends ServiceEntityRepository
         parent::__construct($registry, Pokedex::class);
     }
 
-
     public function save(Pokedex $pokedex): void
     {
         $this->getEntityManager()->persist($pokedex);

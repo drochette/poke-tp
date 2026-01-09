@@ -6,7 +6,6 @@ namespace App\HttpClient;
 
 final class PokemonListDto
 {
-
     public function __construct(private string $label)
     {
     }
@@ -15,5 +14,4 @@ final class PokemonListDto
     {
         return $this->label;
     }
-
 }

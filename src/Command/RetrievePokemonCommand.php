@@ -7,9 +7,7 @@ use App\HttpClient\PokemonApi;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
@@ -33,8 +31,8 @@ class RetrievePokemonCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         $pokemons = $this->pokemonApi->listAll();
-        foreach($pokemons as $pokemon) {
-            $pokemonEntity  = new Pokemon();
+        foreach ($pokemons as $pokemon) {
+            $pokemonEntity = new Pokemon();
             $pokemonEntity->setLabel($pokemon->getLabel());
             $this->entityManager->persist($pokemonEntity);
 
@@ -42,8 +40,7 @@ class RetrievePokemonCommand extends Command
         }
         $this->entityManager->flush();
 
-        $io->success("Pokemons successully added");
-
+        $io->success('Pokemons successully added');
 
         return Command::SUCCESS;
     }

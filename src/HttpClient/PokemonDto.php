@@ -6,7 +6,6 @@ namespace App\HttpClient;
 
 final class PokemonDto
 {
-
     public function __construct(private string $name, private array $abilities, private int $baseExperience)
     {
     }
@@ -25,5 +24,4 @@ final class PokemonDto
     {
         return $this->baseExperience;
     }
-
 }

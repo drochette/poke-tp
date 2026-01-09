@@ -16,21 +16,18 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[IsGranted('ROLE_USER')]
 final class PokemonController extends AbstractController
 {
-
     public function __construct(
         private PokemonRepository $pokemonRepository,
         private PokemonApi $pokemonApi,
-        private PokedexRepository $pokedexRepository
-    )
-    {
+        private PokedexRepository $pokedexRepository,
+    ) {
     }
 
     #[Route('/', name: 'app_home')]
     #[Route('/pokemons', name: 'app_list_pokemons')]
     public function index(
         #[MapQueryString] PaginationDto $paginationDto,
-    ): Response
-    {
+    ): Response {
         $pokemons = $this->pokemonRepository->findAllPaginated(
             $paginationDto->page,
             $paginationDto->limit,
@@ -41,7 +38,6 @@ final class PokemonController extends AbstractController
         ]);
     }
 
-
     #[Route('/pokemons/{id}', name: 'app_view_a_pokemon')]
     public function view(Pokemon $pokemon): Response
     {
@@ -49,24 +45,25 @@ final class PokemonController extends AbstractController
 
         return $this->render('pokemon/view.html.twig', [
             'pokemon' => $pokemon,
-            'pokemonInfo' => $pokemonData
+            'pokemonInfo' => $pokemonData,
         ]);
     }
-
 
     #[Route('/pokemons/{id}/add_to_pokedex', name: 'app_add_pokemon_to_pokedex')]
     public function addToPokedex(Pokemon $pokemon): Response
     {
         $userPokemons = $this->pokedexRepository->findBy(['user' => $this->getUser()]);
-        $isPokemonAlreadyInPokedex = $this->pokedexRepository->findOneBy(['user' => $this->getUser(), 'pokemon' => $pokemon]) !== null;
+        $isPokemonAlreadyInPokedex = null !== $this->pokedexRepository->findOneBy(['user' => $this->getUser(), 'pokemon' => $pokemon]);
 
         if ($isPokemonAlreadyInPokedex) {
             $this->addFlash('error', 'Désolé le pokemon est déjà dans votre pokedex');
+
             return $this->redirectToRoute('app_view_a_pokemon', ['id' => $pokemon->getId()]);
         }
 
         if (count($userPokemons) >= 20) {
             $this->addFlash('error', 'Désolé vous avez atteint le nombre maximum de pokemons dans votre pokedex (20)');
+
             return $this->redirectToRoute('app_view_a_pokemon', ['id' => $pokemon->getId()]);
         }
 

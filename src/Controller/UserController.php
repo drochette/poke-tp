@@ -11,7 +11,6 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class UserController extends AbstractController
 {
-
     public function __construct(private PokedexRepository $pokedexRepository)
     {
     }
@@ -22,9 +21,9 @@ class UserController extends AbstractController
         $pokedexData = $this->pokedexRepository->findBy(['user' => $this->getUser()]);
 
         return $this->render('user/my_pokedex.html.twig',
-        [
-            'pokedexData' => $pokedexData
-        ]
+            [
+                'pokedexData' => $pokedexData,
+            ]
         );
     }
 }
