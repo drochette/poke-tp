@@ -6,6 +6,7 @@ use App\Repository\PokedexRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PokedexRepository::class)]
+#[ORM\UniqueConstraint(name: 'UNIQ_POKEDEX_USER_POKEMON', columns: ['user_id', 'pokemon_id'])]
 class Pokedex
 {
     #[ORM\Id]
