@@ -1,0 +1,6 @@
+# see https://symfony.com/doc/current/reference/configuration/framework.html
+framework:
+  http_client:
+    scoped_clients:
+      pokemon.client:
+        base_uri: '%env(POKEMON_API)%'
