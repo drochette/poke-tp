@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace App\HttpClient;
 
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Contracts\HttpClient\ResponseInterface;
 
-final class PokemonApi
+class PokemonApi
 {
     public function __construct(private HttpClientInterface $pokemonClient)
     {
@@ -17,10 +18,12 @@ final class PokemonApi
      */
     public function listAll(): array
     {
-        $response = $this->pokemonClient->request('GET', '/api/v2/pokemon?limit=300')->toArray();
+        /** @var ResponseInterface $response */
+        $response = $this->pokemonClient->request('GET', '/api/v2/pokemon?limit=300');
+        $responseData = $response->toArray();
 
         $pokemons = [];
-        foreach ($response['results'] as $pokemonData) {
+        foreach ($responseData['results'] as $pokemonData) {
             $pokemons[] = new PokemonListDto($pokemonData['name']);
         }
 
