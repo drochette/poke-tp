@@ -21,7 +21,7 @@
   - Formulaire d'ajout de pokemon (Uniquement pour l'admin)
   - Formulaire d'ajout dans un pokedex (par utilisateur)
   - Affichage de la page de détail d'un pokemon
-  		- affichage son experience de base (base_experience ) et ses capacités (abilities)
+  		- affichage son experience de base (base_experience) et ses capacités (abilities)
   		- https://pokeapi.co/api/v2/pokemon/kakuna
 
 

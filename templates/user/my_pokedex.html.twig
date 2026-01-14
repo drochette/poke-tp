@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon pokedex{% endblock %}
+
+{% block body %}
+    <h2>Mon pokedex</h2>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Label</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for pokedex in pokedexData %}
+            <tr>
+                <th scope="row">{{ pokedex.pokemon.id }}</th>
+                <td>{{ pokedex.pokemon.label }}</td>
+                <td><a href="{{ url('app_view_a_pokemon', {id: pokedex.pokemon.id}) }}">Voir</a></td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+{% endblock %}
